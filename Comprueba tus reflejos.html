@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Comprueba tus reflejos</title>
+    <style type="text/css">
+        #cuadrado{
+        width: 200px;
+        height: 200px;
+        background-color: red;
+        position: relative;
+        top: 100px;
+        left: 100px;
+        }
+        .bold{
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="bold">Comprueba tus reflejos:</h1>
+    <h2 class="bold">haz click en los circulos y cuadrados tan rapido como puedas!!!</h2>
+    <p class="bold">Tiempo de reacción: <span id="tiempoReaccion"></span></p>
+        <div id="cuadrado"></div>
+        <script type="text/javascript">
+        var inicio = new Date().getTime(); //Alcance global
+        function obtenerColorAleatorio(){
+            var letters = '0123456789ABCDEF'.split('');
+            var color = '#';
+            for(var i = 0; i < 5; i++){
+                color += letters[Math.round(Math.random()*15)];
+            }
+            return color;
+        }
+        function aparacerForma(){
+            var top = Math.random()*400;
+            var left = Math.random()*400;
+            var width =(Math.random()*200)+100;
+            var colorAleatorio = obtenerColorAleatorio();
+            if(Math.random()>0.5){
+                document.getElementById("cuadrado").style.borderRadius = "50%";
+            }
+            else{
+                document.getElementById("cuadrado").style.borderRadius = "0%";
+            }
+            document.getElementById("cuadrado").style.display = "block";
+            document.getElementById("cuadrado").style.top = top;
+            document.getElementById("cuadrado").style.left = left;
+            document.getElementById("cuadrado").style.width = width;
+            document.getElementById("cuadrado").style.height = width;
+            document.getElementById("cuadrado").style.backgroundColor = colorAleatorio;
+            inicio = new Date().getTime();
+        }
+        function aparacerFormaDespuesDeRetraso(){
+            setTimeout(aparacerForma, Math.random()*2000);
+        }
+        aparacerFormaDespuesDeRetraso();
+        document.getElementById("cuadrado").onclick = function(){
+            document.getElementById("cuadrado").style.display = "none";
+            var fin = new Date().getTime();
+            var diferencia = (fin-inicio)/1000;
+            document.getElementById("tiempoReaccion").innerHTML = diferencia + "s";
+            aparacerFormaDespuesDeRetraso();
+        }
+        
+        </script>
+</body>
+</html>
